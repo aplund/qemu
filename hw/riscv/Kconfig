@@ -6,6 +6,14 @@ config IBEX
 
 # RISC-V machines in alphabetical order
 
+config GD32VF103
+    bool
+
+config LONGAN_NANO
+    bool
+    select GD32VF103
+    select UNIMP
+
 config MICROCHIP_PFSOC
     bool
     select CADENCE_SDHCI

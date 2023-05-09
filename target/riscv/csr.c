@@ -1775,6 +1775,27 @@ static RISCVException write_mtvec(CPURISCVState *env, int csrno,
     return RISCV_EXCP_NONE;
 }
 
+static RISCVException read_mtvt(CPURISCVState *env, int csrno,
+                                 target_ulong *val)
+{
+    *val = env->mtvt;
+    return RISCV_EXCP_NONE;
+}
+
+static RISCVException write_mtvt(CPURISCVState *env, int csrno,
+                                  target_ulong val)
+{
+    /* bits [1:0] encode mode; 0 = direct, 1 = vectored, 2 >= reserved */
+    // if ((val & 3) < 2) {
+    //     env->mtvt = val;
+    // } else {
+    //     qemu_log_mask(LOG_UNIMP, "CSR_MTVT: reserved mode not supported\n");
+    // }
+    env->mtvt = val;
+    return RISCV_EXCP_NONE;
+}
+
+
 static RISCVException read_mcountinhibit(CPURISCVState *env, int csrno,
                                          target_ulong *val)
 {
@@ -4051,6 +4072,7 @@ riscv_csr_operations csr_ops[CSR_TABLE_SIZE] = {
     [CSR_MTVEC]       = { "mtvec",      any,   read_mtvec,   write_mtvec   },
     [CSR_MCOUNTEREN]  = { "mcounteren", umode, read_mcounteren,
                           write_mcounteren                                 },
+    [CSR_MTVT ]       = { "mtvt",       any,   read_mtvt,   write_mtvt     },
 
     [CSR_MSTATUSH]    = { "mstatush",   any32, read_mstatush,
                           write_mstatush                                   },

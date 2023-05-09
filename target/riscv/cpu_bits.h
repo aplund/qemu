@@ -158,6 +158,7 @@
 #define CSR_MIE             0x304
 #define CSR_MTVEC           0x305
 #define CSR_MCOUNTEREN      0x306
+#define CSR_MTVT            0x307
 
 /* 32-bit only */
 #define CSR_MSTATUSH        0x310
